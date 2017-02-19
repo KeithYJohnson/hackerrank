@@ -6,8 +6,32 @@ require 'pry-byebug'
 class BTree
   attr_accessor :root
 
+  @@not_found = true
+  @@iters     = 0
+
   def initialize(root_node)
     self.root = root_node
+  end
+
+  def lookup(target, node=nil)
+    if @@iters == 0 && node.nil?
+      current_node = root
+    else
+      current_node = node
+    end
+
+    if @@not_found
+      @@iters += 1
+      if current_node.value == target
+        @@not_found = false
+        puts "found target: #{target} at Node with id: #{current_node.id}"
+        return current_node.id
+      elsif current_node.value > target
+        lookup(target, current_node.left)
+      else
+        lookup(target, current_node.right)
+      end
+    end
   end
 end
 
@@ -16,31 +40,3 @@ end
 # builder.build_tree(root)
 # tree    = BTree.new(root)
 # target = tree.root.left.value
-
-
-# A test case becasue TreeBuilder is random
-root = Node.new(5)
-
-#1st level
-first_left  = Node.new(3)
-first_right = Node.new(10)
-root.left   = first_left
-root.right  = first_right
-
-# SECOND LEVEL
-# Left Nodes
-left_left  = Node.new(1)
-left_right = Node.new(4)
-first_left.left = left_left
-first_left.right = left_right
-
-#Right nodes
-right_left = Node.new(7)
-right_right = Node.new(12)
-first_right.left = right_left
-first_right.right = right_right
-
-tree = BTree.new(root)
-target = 10
-searcher = BreadthFirstSearch.new(tree, target)
-searcher.perform
