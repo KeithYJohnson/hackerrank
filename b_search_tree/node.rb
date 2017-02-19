@@ -9,4 +9,8 @@ class Node
     self.right = right
     @@current_id += 1
   end
+
+  def next_level
+    [left, right]
+  end
 end
