@@ -1,5 +1,5 @@
 def is_palindrome(text):
-    if len(text) == 1 or len(text) == 0:
+    if text == '':
         return True
     else:
         if text[0] != text[-1]:
