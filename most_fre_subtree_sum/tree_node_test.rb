@@ -5,9 +5,9 @@ describe TreeNode do
 
   before do
     tnl = TreeNode.new(2)
-    tnr = TreeNode.new(3)
+    tnr = TreeNode.new(7)
 
-    tn2l = TreeNode.new(3)
+    tn2l = TreeNode.new(1)
     tn2r = TreeNode.new(3)
 
     tnl.left = tn2l
@@ -20,7 +20,7 @@ describe TreeNode do
   describe "#sum" do
     it 'sums its val plus that of all nodes below it' do
       root.sum
-      expect(root.sum_below).to eq(16)
+      expect(root.sum_below).to eq(18)
     end
   end
 
@@ -33,7 +33,7 @@ describe TreeNode do
 
   describe "#most_frequent_sum_below" do
     it 'gets the most requents the most frequently occuring sum of all nodes' do
-      expect(root.most_frequent_sum_below).to eq(3)
+      expect(root.most_frequent_sum_below).to eq(18)
     end
   end
 end
