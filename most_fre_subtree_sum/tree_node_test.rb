@@ -17,6 +17,16 @@ describe TreeNode do
     root.right = tnr
   end
 
+  describe "#invert" do
+    it 'inverts the tree' do
+      root.invert
+      expect(root.left.val).to  eq(7)
+      expect(root.right.val).to eq(2)
+      expect(root.left.left.val).to  eq(3)
+      expect(root.left.right.val).to eq(1)
+    end
+  end
+
   describe "#sum" do
     it 'sums its val plus that of all nodes below it' do
       root.sum

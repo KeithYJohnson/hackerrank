@@ -80,4 +80,19 @@ class TreeNode
       return self
     end
   end
+
+  def invert
+    left_val_pholder  = self.left.val  if self.left
+    right_val_pholder = self.right.val if self.right
+
+    if self.left
+      self.left.val = right_val_pholder
+      self.left.invert
+    end
+
+    if self.right
+      self.right.val = left_val_pholder
+      self.right.invert
+    end
+  end
 end
