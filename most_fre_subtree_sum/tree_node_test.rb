@@ -62,4 +62,17 @@ describe TreeNode do
       end
     end
   end
+
+  describe "#search" do
+    context "its in the tree" do
+      subject { root.search(1) }
+      it { is_expected.to eq(tn2l) }
+
+    end
+
+    context "its not in the tree" do
+      subject { root.search(50) }
+      it { is_expected.to be_nil }
+    end
+  end
 end

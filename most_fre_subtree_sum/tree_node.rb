@@ -70,4 +70,14 @@ class TreeNode
       end
     end
   end
+
+  def search(target)
+    if target < self.val
+      self.left.search(target) if self.left
+    elsif target > self.val
+      self.right.search(target) if self.right
+    else
+      return self
+    end
+  end
 end
