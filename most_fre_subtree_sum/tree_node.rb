@@ -27,6 +27,7 @@ class TreeNode
   end
 
   def get_children(node_to_track=self)
+    self.children = []
     if left
       node_to_track.children << left
       left.get_children(node_to_track)
@@ -49,5 +50,24 @@ class TreeNode
 
     freqs = sums.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
     sums.max_by { |v| freqs[v] }
+  end
+
+  def insert(node)
+    new_val = node.val
+    return if new_val == val
+
+    if new_val > val
+      if self.right
+        self.right.insert(node)
+      else
+        self.right = node
+      end
+    else
+      if self.left
+        self.left.insert(node)
+      else
+        self.left = node
+      end
+    end
   end
 end
