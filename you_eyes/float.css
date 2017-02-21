@@ -1,0 +1,16 @@
+body {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+p {
+  line-height: 2;
+  word-spacing: 0.1rem;
+}
+
+img {
+  /*where  taken from the normal flow and placed along the left or right side of its container, _text_ and _inline_ elements will wrap around it.*/
+  float: left;
+  margin: 0 30px 0 0;
+}
