@@ -1,7 +1,5 @@
-# Definition for a binary tree node.
-require 'pry-byebug'
 class TreeNode
-  attr_accessor :val, :left, :right, :sum_below, :children, :id
+  attr_accessor :val, :left, :right, :sum_below, :children, :id, :levels
   @@current_id = 0
 
   def initialize(val)
@@ -12,6 +10,44 @@ class TreeNode
       self.right     = nil
       self.sum_below = val
       self.children  = []
+      self.levels    = []
+  end
+
+  def invert
+    get_levels
+    levels.each_with_index do |level, l_idx|
+      if l_idx == 0
+        left_placeholder = self.left
+        self.left        = self.right
+        self.right       = left_placeholder
+        next
+      else
+        previous_level = levels[l_idx - 1]
+      end
+
+      level.each_slice(2).with_index do |node_pair, pair_index|
+        parent = previous_level[pair_index]
+        parent.left = node_pair.last
+        parent.right  = node_pair.first
+      end
+      # TODO If you manually traverse to the leaves, they are inverted.  This
+      # means the self.levels needs to be able to be rebuilt.
+    end
+  end
+
+  def get_levels(nodes=[self])
+    next_level = []
+
+    nodes.each do |node|
+      next if node.nil?
+      next_level << node.left
+      next_level << node.right
+    end
+
+    unless next_level.all? { |node| node.nil? }
+      self.levels << next_level
+      get_levels(next_level)
+    end
   end
 
   def sum(node_to_track=self)
@@ -78,21 +114,6 @@ class TreeNode
       self.right.search(target) if self.right
     else
       return self
-    end
-  end
-
-  def invert
-    left_val_pholder  = self.left.val  if self.left
-    right_val_pholder = self.right.val if self.right
-
-    if self.left
-      self.left.val = right_val_pholder
-      self.left.invert
-    end
-
-    if self.right
-      self.right.val = left_val_pholder
-      self.right.invert
     end
   end
 end

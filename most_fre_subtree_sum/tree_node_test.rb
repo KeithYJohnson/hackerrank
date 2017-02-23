@@ -17,15 +17,43 @@ describe TreeNode do
     root.right = tnr
   end
 
-  describe "#invert" do
-    it 'inverts the tree' do
-      root.invert
-      expect(root.left.val).to  eq(7)
-      expect(root.right.val).to eq(2)
-      expect(root.left.left.val).to  eq(3)
-      expect(root.left.right.val).to eq(1)
+  describe "#get_levels" do
+    before do
+      tnr.left  = TreeNode.new(10)
+      tnr.right = TreeNode.new(7)
+    end
+    it 'returns an array of arrays.  Each element is the subsequent level in the tree' do
+      root.get_levels
+      expect(root.levels.first.length).to eq(2)
+      expect(root.levels.last.length).to eq(4)
     end
   end
+
+  describe "#invert" do
+    before do
+      tnr.left  = TreeNode.new(10)
+      tnr.right = TreeNode.new(7)
+      root.get_levels
+    end
+
+    it 'inverts the tree' do
+      before_inversion_levels = root.levels
+      first_level_vals  = before_inversion_levels[0].map(&:val)
+      second_level_vals = before_inversion_levels[1].map(&:val)
+
+      root.invert
+
+      expect(root.left.val).to  eq(first_level_vals.last)
+      expect(root.right.val).to eq(first_level_vals.first)
+
+
+      expect(root.left.left.val).to eq(second_level_vals[-1])
+      expect(root.left.right.val).to eq(second_level_vals[-2])
+      expect(root.right.right.val).to eq(second_level_vals[0])
+      expect(root.right.left.val).to eq(second_level_vals[1])
+    end
+  end
+
 
   describe "#sum" do
     it 'sums its val plus that of all nodes below it' do
