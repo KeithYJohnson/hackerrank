@@ -1,0 +1,36 @@
+
+
+/* Tooltip container */
+.w3tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.w3tooltip .tooltiptext {
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.w3tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}

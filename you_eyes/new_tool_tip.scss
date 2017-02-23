@@ -1,0 +1,21 @@
+.thing {
+  background-color: gray;
+  position: relative;
+  height: 50px;
+}
+
+.thing .tooltip {
+  opacity: 0;
+  transition: 1s;
+
+  position: absolute;
+  z-index: 1;
+  top: 75%;
+  left: 10%;
+  margin-left: -60px;
+}
+
+.thing:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
