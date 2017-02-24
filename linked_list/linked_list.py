@@ -45,20 +45,15 @@ class LinkedList:
     def delete(self, value):
         """Delete the first node with a given value."""
         current = self.head
-        if current.value == value:
-            self.head = current.next
-            return self.head
-
-        while current and current.value != value:
+        previous = None
+        while current.value != value and current.next:
+            previous = current
             current = current.next
-
-        if current:
-            after_node        = current.next
-            previous_position = self.get_position_by_element(current)[1] - 1
-            previous_node     = self.get_elem_by_position(previous_position)
-            previous_node.next = after_node
-        else:
-            print('Value not found, did not delete anything from the LinkedList.')
+        if current.value == value:
+            if previous:
+                previous.next = current.next
+            else:
+                self.head = current.next
 
     def get_position_by_element(self, element):
         current = self.head
