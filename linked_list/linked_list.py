@@ -45,6 +45,9 @@ class LinkedList:
     def delete(self, value):
         """Delete the first node with a given value."""
         current = self.head
+        if current.value == value:
+            self.head = current.next
+            return self.head
 
         while current and current.value != value:
             current = current.next
@@ -73,20 +76,52 @@ class LinkedList:
 
         return current
 
-e  = Element(3)
-ll = LinkedList(e)
-e2 = Element(4)
-e3 = Element(5)
+# e  = Element(3)
+# ll = LinkedList(e)
+# e2 = Element(4)
+# e3 = Element(5)
+# ll.append(e2)
+# ll.append(e3)
+#
+# print(e.next.next == e3)
+# print(ll.get_elem_by_position(2))
+# ll.insert(Element(10), 3)
+# print( ll.get_elem_by_position(3).value == 10 )
+# print(ll.get_elem_by_position(4).value == 5)
+# print(ll.get_elem_by_position(2).value == 4)
+#
+# # Testing delete.
+# print(ll.delete(5))
+# print(ll.get_elem_by_value(5) == None)
+
+# Test cases
+# Set up some Elements
+e1 = Element(1)
+e2 = Element(2)
+e3 = Element(3)
+e4 = Element(4)
+
+# Start setting up a LinkedList
+ll = LinkedList(e1)
 ll.append(e2)
 ll.append(e3)
 
-print(e.next.next == e3)
-print(ll.get_elem_by_position(2))
-ll.insert(Element(10), 3)
-print( ll.get_elem_by_position(3).value == 10 )
-print(ll.get_elem_by_position(4).value == 5)
-print(ll.get_elem_by_position(2).value == 4)
+# Test get_position
+# Should print 3
+print(ll.head.next.next.value == 3)
+# Should also print 3
+print(ll.get_elem_by_position(3).value == 3)
 
-# Testing delete.
-print(ll.delete(5))
-print(ll.get_elem_by_value(5) == None)
+# Test insert
+ll.insert(e4,3)
+# Should print 4 now
+print(ll.get_elem_by_position(3).value == 4)
+
+# Test delete
+ll.delete(1)
+# Should print 2 now
+print(ll.get_elem_by_position(1).value == 2)
+# Should print 4 now
+print(ll.get_elem_by_position(2).value == 4)
+# Should print 3 now
+print(ll.get_elem_by_position(3).value == 3)
