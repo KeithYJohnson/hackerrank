@@ -1,0 +1,21 @@
+      1
+     / \
+    2   3
+  /  \
+ 4    5
+
+self.preorder_print(Node(1), "")
+    self.preorder_print(Node(2), "1-")
+        self.preorder_print(Node(4), "1-2-")
+            # Node(4).left
+            self.preorder_print(None, "1-2-4")
+            # Node(4).right
+            self.preorder_print(None, "1-2-4")
+        self.preorder_print(Node(5), "1-2-4-")
+            # Node(5).left
+            self.preorder_print(Node(None,"1-2-4-5-"))
+            # Node(5).right
+            self.preorder_print(Node(None,"1-2-4-5-"))
+    self.preorder_print(Node(3), "1-2-4-5-")
+        self.preorder_print(None, "1-2-4-5-3-")
+        self.preorder_print(None, "1-2-4-5-3-")
