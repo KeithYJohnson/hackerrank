@@ -13,8 +13,7 @@ class FindMaxDistance
   def initialize(num_cities, num_stations, cities_w_stations)
     self.num_cities        = num_cities
     self.num_stations      = num_stations
-    self.cities_w_stations = cities_w_stations
-    puts "analyzing num_cities: #{num_cities}"
+    self.cities_w_stations = cities_w_stations.sort!
   end
 
   def perform
@@ -23,22 +22,26 @@ class FindMaxDistance
       distance = find_closest_station(i)
       max_distance = distance if distance > max_distance
     end
-    p max_distance
+    max_distance
   end
 
   def find_closest_station(city)
-    min_distance = num_cities - 1
-
     cities_w_stations.each_with_index do |station, index|
-      distance = (station - city).abs
-      min_distance = distance if distance < min_distance
+      if station == city
+        return 0
+      elsif station > city
+        next_station         = station
+        previous_station     = cities_w_stations[index - 1]
+        distance_to_previous = (previous_station - city).abs
+        distance_to_next     = (next_station - city).abs
+        return [distance_to_previous, distance_to_next].min
+      end
     end
-
-    min_distance
+    city - cities_w_stations[-1]
   end
 end
 
-input = File.readlines('input_15.txt')
+input = File.readlines('input_1.txt')
 num_cities, num_stations = input[0].strip.split(' ')
 num_cities = num_cities.to_i
 num_stations = num_stations.to_i
