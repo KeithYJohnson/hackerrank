@@ -13,7 +13,6 @@ end
 
 found_primes = 0
 current_num  = 1
-10_001
 while found_primes < 10_002
   if is_prime?(current_num)
     found_primes += 1
