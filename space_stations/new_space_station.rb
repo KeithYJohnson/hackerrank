@@ -1,22 +1,37 @@
-require 'pry-byebug'
-
-# num_cities, num_stations = gets.strip.split(' ')
-# num_cities = n.to_i
-# num_stations = m.to_i
-# cities_w_stations = gets.strip
-# cities_w_stations = gets.strip
-# cities_w_stations = c.split(' ').map(&:to_i)
-
 class FindMaxDistance
-  attr_accessor :num_cities, :num_stations, :cities_w_stations
+  attr_accessor :num_cities, :num_stations, :cities_w_stations, :strategy
 
-  def initialize(num_cities, num_stations, cities_w_stations)
+  def initialize(num_cities, num_stations, cities_w_stations, strategy=method(:be_fancy))
     self.num_cities        = num_cities
     self.num_stations      = num_stations
     self.cities_w_stations = cities_w_stations.sort!
+    self.strategy          = strategy
   end
 
   def perform
+    strategy.call
+  end
+
+  def be_fancy
+    max_distance = handle_ends
+
+    cities_w_stations.each_cons(2) do |a, b|
+      a = a.to_f
+      b = b.to_f
+      distance = ((b - a - 1).abs / 2).ceil
+      max_distance = distance if distance > max_distance
+    end
+    max_distance
+  end
+
+  def handle_ends
+    # Because the "divide by 2" breaks on the ends of the string of cities
+    start_distance = cities_w_stations[0]
+    end_distance   = (num_cities - 1) - cities_w_stations[-1]
+    [start_distance, end_distance].max
+  end
+
+  def compare_each_city
     max_distance = 0
     (0...num_cities).each do |i|
       distance = find_closest_station(i)
@@ -41,7 +56,7 @@ class FindMaxDistance
   end
 end
 
-input = File.readlines('input_1.txt')
+input = File.readlines('input2.txt')
 num_cities, num_stations = input[0].strip.split(' ')
 num_cities = num_cities.to_i
 num_stations = num_stations.to_i
