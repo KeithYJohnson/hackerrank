@@ -1,0 +1,9 @@
+red:
+  hello Im red
+green:
+  hello im green
+  and i do other things
+purple: yellow red
+  hello im purple
+yellow: red
+  hello im yellow
