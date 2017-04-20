@@ -1,3 +1,5 @@
+https://www.hackerrank.com/challenges/breaking-best-and-worst-records?h_r=next-challenge&h_v=zen
+
 def rekkids_brokens(a)
   # min and max are based off constraints in problem description
   min = 100_000_001
