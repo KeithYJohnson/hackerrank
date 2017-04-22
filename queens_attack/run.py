@@ -5,7 +5,6 @@ rQueen, cQueen = [4187, 5068]
 def generate_board(size):
     board = []
     for i in range(0, size):
-        print('hey')
         board.append(size * [None])
 
     return board
