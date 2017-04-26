@@ -13,36 +13,35 @@
 #   next_greater ? next_greater : 'no answer'
 # end
 
-
+require 'pry-byebug'
 def faster_solution(s)
-  sorted = s.chars.sort
-  hash   = sorted.each_with_index.inject({}) do |result, thing|
-    char, idx = thing
-    result[char] = idx
-    result
-  end
+  hash = s.chars.inject(Hash.new) { |result, e| result[e] = e.ord; result }
 
   (s.length - 1).downto(0) do |i|
     current_char     = s[i]
     current_char_val = hash[current_char]
     unless hash[current_char] == s.length  # Greatest lexographical char
 
-      next_greatest = current_char_val
+      next_greatest_val = 'z'.ord + 1
+      next_greatest_char = nil
 
-      right_of_current_char = s[(i+1)..-1].chars.sort
+      right_of_current_char = s[(i+1)..-1].chars
+
       if !right_of_current_char.empty?
         right_of_current_char.each do |possible_swap_char|
-          possible_swap_char_val = hash[possible_swap_char_val]
-          if hash[possible_swap_char] > next_greatest
-            # 1.  swap this greater_char with the current char
-            # 2.  sort the chars after the current_chars index and rejoin so that they are the lowest they could possible be lexographically
-
-            possible_swap_char_idx = s[i+1..-1].index(possible_swap_char) + 1 + i
-            s[i] = possible_swap_char
-            s[possible_swap_char_idx] = current_char
-            s[i+1..-1] = s[i+1..-1].chars.sort.join
-            return s
+          possible_swap_char_val = hash[possible_swap_char]
+          if possible_swap_char_val > current_char_val && possible_swap_char_val < next_greatest_val
+            next_greatest_val = possible_swap_char_val
+            next_greatest_char = possible_swap_char
           end
+        end
+
+        if next_greatest_char
+          possible_swap_char_idx = s[i+1..-1].index(next_greatest_char) + 1 + i
+          s[i] = next_greatest_char
+          s[possible_swap_char_idx] = current_char
+          s[i+1..-1] = s[i+1..-1].chars.sort.join
+          return s
         end
       end
     else
