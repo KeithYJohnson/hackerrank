@@ -52,12 +52,37 @@ def faster_solution(s)
   'no answer'
 end
 
+
+# Credit - https://www.nayuki.io/page/next-lexicographical-permutation-algorithm
+def fastest_solution(s)
+  chars = s.chars
+  non_increasing_suffix_idx = chars.length - 1
+
+  # Find the largest non-increasing suffix
+  while non_increasing_suffix_idx > 0 and chars[non_increasing_suffix_idx - 1] >= chars[non_increasing_suffix_idx]
+    non_increasing_suffix_idx -= 1
+  end
+
+  return 'no answer' if non_increasing_suffix_idx <= 0
+
+  j = chars.length - 1
+  while chars[j] <= chars[non_increasing_suffix_idx - 1]
+    j -= 1
+  end
+  chars[non_increasing_suffix_idx - 1], chars[j] = chars[j], chars[non_increasing_suffix_idx - 1]
+
+  pivot_idx = non_increasing_suffix_idx - 1
+
+  # Reverse the suffix.
+  (chars[0..pivot_idx] + chars[(pivot_idx + 1)..-1].reverse).join
+end
+
 #
-p faster_solution('ab') == 'ba'
-p faster_solution('bb') == 'no answer'
-p faster_solution('hefg') == 'hegf'
-p faster_solution('dhck') == 'dhkc'
-p faster_solution('dkhc') == 'hcdk' #hkdc
+p fastest_solution('ab') == 'ba'
+p fastest_solution('bb') == 'no answer'
+p fastest_solution('hefg') == 'hegf'
+p fastest_solution('dhck') == 'dhkc'
+p fastest_solution('dkhc') == 'hcdk' #hkdc
 
 # file = File.readlines('input.txt')
 # file.each do |line|
