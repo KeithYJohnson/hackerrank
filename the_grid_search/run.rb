@@ -1,5 +1,5 @@
 # https://www.hackerrank.com/challenges/the-grid-search
-require 'pry-byebug'
+# Faster ruby solution - https://github.com/rootulp/hackerrank/blob/master/ruby/the_grid_search.rb
 def grid_match?(grid, pattern)
   num_pattern_rows    = pattern.length
   num_pattern_columns = pattern[0].length
@@ -28,32 +28,6 @@ def grid_match?(grid, pattern)
   "NO"
 end
 
-def fast_grid_match?(grid, pattern)
-
-  num_pattern_rows    = pattern.length
-  num_pattern_cols = pattern[0].length
-  smushed_pattern     = pattern.join
-
-  num_snapshots = (grid.length - num_pattern_rows) * (grid[0].length - num_pattern_cols)
-  snapshots     = Array.new(grid.length - num_pattern_rows + 1) { Array.new(grid[0].length - num_pattern_cols + 1) { "" } }
-
-  grid.each_with_index do |row, row_idx|
-    row.chars.each_with_index do |char, col_idx|
-      low_row_idx  = [row_idx - num_pattern_rows + 1, 0].max
-      high_row_idx = [grid.length - num_pattern_rows, row_idx].min
-
-      low_col_idx  = [col_idx - num_pattern_cols - 1, 0].max
-      high_col_idx = [grid[0].length - num_pattern_cols, col_idx].min
-
-      (low_row_idx..high_row_idx).each do |snapshot_row_idx|
-        (low_col_idx..high_col_idx).each do |snapshot_col_idx|
-          snapshots[snapshot_row_idx][snapshot_col_idx] += char
-        end
-      end
-    end
-  end
-  snapshots.flatten.map(&:length).uniq
-end
 
 # grid = ["7283455864", "6731158619", "8988242643", "3830589324", "2229505813", "5633845374", "6473530293", "7053106601", "0834282956", "4607924137"]
 # pattern = ["9505", "3845", "3530"]
