@@ -4,7 +4,7 @@ NUM_TO_LETTERS = {
   1 => [],
   2 => ['A', 'B', 'C'],
   3 => ['D', 'E', 'F'],
-  4 => ['G', 'G', 'I'],
+  4 => ['G', 'H', 'I'],
   5 => ['J', 'K', 'L'],
   6 => ['M', 'N', 'O'],
   7 => ['P', 'Q', 'R', 'S'],
@@ -13,8 +13,8 @@ NUM_TO_LETTERS = {
   0 => [],
 }
 
-def solution(number, permuts=[[]])
-  return permuts.select { |permut| permut.length == 7 }.uniq if number.length == 0
+def solution(number, permuts=[[]], orig_length)
+  return permuts.select { |permut| permut.length == orig_length }.uniq if number.length == 0
   current_num = number.shift.to_i
   num_letters = NUM_TO_LETTERS[current_num]
 
@@ -26,10 +26,5 @@ def solution(number, permuts=[[]])
     end
   end
 
-  return solution(number, permuts)
+  return solution(number, permuts, orig_length)
 end
-
-number = [2,3,4,5,6,7,8]
-permuts = solution(number)
-binding.pry
-1
