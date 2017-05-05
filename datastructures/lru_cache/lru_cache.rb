@@ -46,15 +46,16 @@ class LRUCache
   end
 end
 
-c = LRUCache.new
-
-c.set('hi',      'friend')
-c.set('hola',    'amigo')
-c.set('hallo',   'freund')
-c.set('buna',    'prieten')
-c.set('sawubona','umngane')
-c.set('privet',  'droog')
-
-p c.get('hi')     == nil
-p c.get('hola')   == 'amigo'
-p c.list.tail.val == 'amigo'
+# Quick tests
+# c = LRUCache.new
+#
+# c.set('hi',      'friend')
+# c.set('hola',    'amigo')
+# c.set('hallo',   'freund')
+# c.set('buna',    'prieten')
+# c.set('sawubona','umngane')
+# c.set('privet',  'droog')
+#
+# p c.get('hi')     == nil
+# p c.get('hola')   == 'amigo'
+# p c.list.tail.val == 'amigo'
